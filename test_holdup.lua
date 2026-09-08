@@ -1,8 +1,12 @@
 -- Test harness for holdup.lua. Runs the pure logic and the hook gating without
--- any network access. Run with: lua5.1 test_holdup.lua
+-- any network access. Run with: lua test_holdup.lua   (any Lua 5.x works)
 
 local failures = 0
 local checks = 0
+
+-- The interpreter running these tests, reused to spawn the CLI subprocess tests
+-- below so they pass no matter which lua (5.1/5.4/5.5/luajit) is on PATH.
+local LUA = arg and arg[-1] or "lua"
 
 local function ok(cond, name)
   checks = checks + 1
@@ -232,12 +236,12 @@ end
 
 -- The CLI entry gate: running the script with arguments must reach M.main.
 do
-  local p = io.popen("lua5.1 holdup.lua -h 2>&1")
+  local p = io.popen(LUA .. " holdup.lua -h 2>&1")
   local help = p:read("*a")
   p:close()
   ok(help:find("Usage", 1, true) ~= nil, "CLI -h prints usage")
 
-  p = io.popen("lua5.1 holdup.lua -v 2>&1")
+  p = io.popen(LUA .. " holdup.lua -v 2>&1")
   local ver = p:read("*a")
   p:close()
   ok(ver:find("0.1.0", 1, true) ~= nil, "CLI -v prints version")

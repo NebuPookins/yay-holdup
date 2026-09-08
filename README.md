@@ -40,7 +40,8 @@ Run the script with no arguments (it is directly executable):
 ./holdup.lua
 ```
 
-(`lua5.1 holdup.lua` works too if you prefer to invoke the interpreter explicitly.)
+(`lua holdup.lua` works too if you prefer to invoke the interpreter explicitly —
+any Lua 5.x, LuaJIT included.)
 
 It prompts for the provider (Claude or DeepSeek) and the API key, then writes
 three files under `$XDG_CONFIG_HOME/yay/` (default `~/.config/yay/`):

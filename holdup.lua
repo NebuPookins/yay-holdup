@@ -1,4 +1,4 @@
-#!/usr/bin/env lua5.1
+#!/usr/bin/env lua
 -- holdup.lua — an LLM malware scanner for the yay AUR helper.
 --
 -- Uses yay v13's Lua hook API. Two ways it runs:
@@ -70,8 +70,8 @@ function M.parse_config_file(path)
   local f = io.open(path, "r")
   if not f then return nil end
   local cfg = { provider = "claude", on_error = "abort" }
-  for line in f:lines() do
-    line = trim(line)
+  for raw in f:lines() do
+    local line = trim(raw)
     if line ~= "" and line:sub(1, 1) ~= "#" then
       local k, v = line:match("^([%w_]+)%s*=%s*(.*)$")
       if k then
